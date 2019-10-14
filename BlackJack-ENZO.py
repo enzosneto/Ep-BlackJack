@@ -38,10 +38,7 @@ def jogada(baralho):
 	    mao.append(carta)
     return mao
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 5c08524ac605d4e95299fe4c7c11f19bb410892a
 
 #definindo o valor das cartas da mão
     
@@ -57,7 +54,7 @@ def pontos(mao,total):
                 total+= 11
         else: 
             total += carta
-        print(mao)
     return total
 
 print(pontos(jogada(baralho),total))
+
