@@ -57,3 +57,4 @@ def pontos(mao,total):
     return total
 
 print(pontos(jogada(baralho),total))
+
