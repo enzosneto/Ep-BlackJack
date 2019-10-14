@@ -38,14 +38,12 @@ def jogada(baralho):
 	    mao.append(carta)
     return mao
 
-print(jogada(baralho))
 
 #definindo o valor das cartas da mão
     
 def total(mao):
     total = 0
     for carta in mao:
-        print(carta)
         if carta == "J" or carta == "Q" or carta == "K":
             total+= 10
         elif carta == "A":
@@ -55,6 +53,7 @@ def total(mao):
                 total+= 11
         else: 
             total += carta
+        print(mao)
     return total
 
 print(total(jogada(baralho)))
