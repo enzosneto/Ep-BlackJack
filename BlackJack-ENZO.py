@@ -11,18 +11,25 @@ import random
 
 
 #Definindo os dois baralhos
-
-baralho = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*8
-
+total=0
+n=int(input("Com quantos baralhos voce quer jogar? "))
+baralho_ = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
+baralho=baralho_*n
 
 #Valor inicial 
 dinheiro_inicial = 100
-
+apostando=False
 print('Você começará com 100 dinheiros para apostar no seu jogo de Blackjack')
 
 #Aposta inicial
-aposta = int(input('Quanto deseja apostar? '))
-total=0
+while apostando == False:
+    aposta = float(input('Quanto deseja apostar? '))
+    if aposta > dinheiro_inicial:
+        print("Aposta Invalida")
+    elif aposta < 0:
+        print("Aposta Invalida")
+    else:
+        apostando=True
 
 #Definindo as cartas na mão
 
