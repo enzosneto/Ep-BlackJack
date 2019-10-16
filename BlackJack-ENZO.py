@@ -46,7 +46,7 @@ def jogada(baralho):
     return mao
 
 
-
+oi
 #definindo o valor das cartas da mão
     
 def pontos(mao,total):
