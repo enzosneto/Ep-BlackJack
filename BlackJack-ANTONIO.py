@@ -35,7 +35,6 @@ while apostando == False:
     else:
         apostando=True
 
-print(aposta)
 
 #Definindo as cartas na mão
 
@@ -116,8 +115,9 @@ def carta(baralho):
     return carta, ponto_carta
 
 
-#print('Mão Croupier: {0}. Pontos Croupier: {1}'.format(mao_croupier, total_croupier))
+
 #Vamos ao jogo
+    
 jogando = True
 
 while jogando == True and dinheiro_jogador >= 0:
@@ -136,7 +136,28 @@ while jogando == True and dinheiro_jogador >= 0:
         print('Parabéns!!! Você fez os 21 pontos e ganhou a rodada')
         print('Seu saldo é de: {0}'.format(dinheiro_jogador))
         
-        break
+        pergunta2 = input('Você deseja continuar jogando? Digitem SIM para coninuar e NAO para parar: ')
+        
+        if pergunta2 == "SIM":
+        
+            baralho=baralho_*n
+        
+            apostando=False
+            while apostando == False:
+                aposta = float(input('Quanto deseja apostar? '))
+                if aposta > dinheiro_inicial:
+                    print("Aposta Invalida")
+                elif aposta > dinheiro_jogador:
+                    print('Aposta Inválida')
+                elif aposta < 0:
+                    print("Aposta Invalida")
+                else:
+                    apostando=True
+                
+            jogando = True
+        
+        elif pergunta2 == "NAO": 
+            jogando = False
         
         
     elif total_jogador < 21:
@@ -149,7 +170,9 @@ while jogando == True and dinheiro_jogador >= 0:
             total_jogador += ponto_nova_carta
             print("Pontos do jogador: {0}".format(total_jogador))
             if total_jogador > 21:
-                print('Você estourou')
+                dinheiro_jogador = dinheiro_jogador - aposta
+                print('Você estourou o limite')
+                print('Seu saldo é de: {0}'.format(dinheiro_jogador))
                 break
             elif total_jogador == 21:
                 aposta = aposta + 1.5*aposta
@@ -163,10 +186,10 @@ while jogando == True and dinheiro_jogador >= 0:
         if pergunta == 1:
             
             print('Mão Croupier: {0}. Pontos Croupier: {1}'.format(mao_croupier, total_croupier))
-  #          aviso1 = input('Certo, agora que não quer mais cartas, daremos a chance ao nosso Croupier completar os 17 pontos, quando estiver pronto, aperte o ENTER')
-            
+
             while total_croupier < 17:
-                mao_croupier, total_croupier = jogada_croupier(baralho)
+#                mao_croupier, total_croupier = jogada_croupier(baralho)
+                nova_carta, ponto_nova_carta = carta(baralho)
                 print('Carta retirada: {0}'.format(nova_carta))
                 total_croupier += ponto_nova_carta
                 
@@ -174,14 +197,28 @@ while jogando == True and dinheiro_jogador >= 0:
                 
                 if total_croupier > total_jogador:
                     
-                    print("Pontos do Croupier: {0}".format(total_croupier))
-                    print("Pontos do jogador: {0}".format(total_jogador))
-                    print("O Croupier venceu... você perdeu essa")
-                    print("Seu saldo é de: {0}".format(dinheiro_jogador))
-                    jogando = False
+                    if total_croupier == 21:
+                        
+                        dinheiro_jogador = dinheiro_jogador - 2.5*aposta
+                        print("Pontos do Croupier: {0}".format(total_croupier))
+                        print("Pontos do jogador: {0}".format(total_jogador))
+                        print("O Croupier conseguiu o Blackjack... foi mal amigo")
+                        print("Seu saldo é de: {0}".format(dinheiro_jogador))
+                        jogando = False
+                        
+                    else:
+                        
+                        dinheiro_jogador = dinheiro_jogador - aposta
+                        print("Pontos do Croupier: {0}".format(total_croupier))
+                        print("Pontos do jogador: {0}".format(total_jogador))
+                        print("O Croupier venceu... você perdeu essa")
+                        print("Seu saldo é de: {0}".format(dinheiro_jogador))
+                        jogando = False
                     
                 
                 elif total_croupier == total_jogador:
+                    
+                    dinheiro_jogador = dinheiro_jogador
                     print("Pontos do Croupier: {0}".format(total_croupier))
                     print("Pontos do jogador: {0}".format(total_jogador))
                     print("Houve um empate")
@@ -190,6 +227,8 @@ while jogando == True and dinheiro_jogador >= 0:
                     
                     
                 else:
+                    
+                    dinheiro_jogador = dinheiro_jogador + aposta
                     print("Pontos do Croupier: {0}".format(total_croupier))
                     print("Pontos do jogador: {0}".format(total_jogador))
                     print("Você ganhou")
@@ -198,17 +237,33 @@ while jogando == True and dinheiro_jogador >= 0:
                     
                     
             else:
-                    print("Pontos do Croupier: {0}".format(total_croupier))
-                    print("Pontos do jogador: {0}".format(total_jogador))
-                    print("Você ganhou")
-                    print("Seu saldo é de: {0}".format(dinheiro_jogador))
-                    jogando = False
+                dinheiro_jogador = dinheiro_jogador + aposta
+                print("Pontos do Croupier: {0}".format(total_croupier))
+                print("Pontos do jogador: {0}".format(total_jogador))
+                print("Você ganhou")
+                print("Seu saldo é de: {0}".format(dinheiro_jogador))
+                jogando = False
                 
-    pergunta2 = input('Você deseja continuar jogando? Digitem SIM para coninuar e NAO para parar')
+    pergunta2 = input('Você deseja continuar jogando? Digitem SIM para coninuar e NAO para parar: ')
     
     if pergunta2 == "SIM":
+        
         baralho=baralho_*n
+        
+        apostando=False
+        while apostando == False:
+            aposta = float(input('Quanto deseja apostar? '))
+            if aposta > dinheiro_inicial:
+                print("Aposta Invalida")
+            elif aposta > dinheiro_jogador:
+                print('Aposta Inválida')
+            elif aposta < 0:
+                print("Aposta Invalida")
+            else:
+                apostando=True
+                
         jogando = True
+        
     elif pergunta2 == "NAO": 
         jogando = False
                         
