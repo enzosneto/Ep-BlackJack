@@ -15,17 +15,13 @@ import random
 n=int(input("Com quantos baralhos voce quer jogar? "))
 baralho_ = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
 baralho=baralho_*n
-print(len(baralho))
-#definindo as pontuações
-
-total_jogador=0
-total_croupier=0
 
 #Valor inicial 
 dinheiro_inicial = 100
 aposta = 0
 dinheiro_jogador = dinheiro_inicial + aposta
 apostando=False
+
 print('Você começará com 100 dinheiros para apostar no seu jogo de Blackjack')
 
 #Aposta inicial
@@ -52,7 +48,20 @@ def jogada_jogador(baralho):
 	    if carta == 13:carta = "K"
 	    if carta == 14:carta = "A"
 	    mao_jogador.append(carta)
-    return mao_jogador
+        
+    total_jogador = 0
+    for carta in mao_jogador:
+        if carta == "J" or carta == "Q" or carta == "K":
+            total_jogador+= 10
+        elif carta == "A":
+            if total_jogador >= 11:
+                total_jogador+= 1
+            else: 
+                total_jogador+= 11
+        else: 
+            total_jogador += carta
+            
+    return mao_jogador, total_jogador
 
 def jogada_croupier(baralho):
     mao_croupier = []
@@ -64,27 +73,8 @@ def jogada_croupier(baralho):
 	    if carta == 13:carta = "K"
 	    if carta == 14:carta = "A"
 	    mao_croupier.append(carta)
-    return mao_croupier
-
-
-#definindo o valor das cartas da mão
-    
-def pontos_jogador(mao_jogador,total_jogador):
-    print(mao_jogador)
-    for carta in mao_jogador:
-        if carta == "J" or carta == "Q" or carta == "K":
-            total_jogador+= 10
-        elif carta == "A":
-            if total_jogador >= 11:
-                total_jogador+= 1
-            else: 
-                total_jogador+= 11
-        else: 
-            total_jogador += carta
-    return total_jogador
-
-def pontos_croupier(mao_croupier,total_croupier):
-    print(mao_croupier)
+        
+    total_croupier = 0
     for carta in mao_croupier:
         if carta == "J" or carta == "Q" or carta == "K":
             total_croupier+= 10
@@ -95,44 +85,48 @@ def pontos_croupier(mao_croupier,total_croupier):
                 total_croupier+= 11
         else: 
             total_croupier += carta
-    return total_croupier
+            
+    return mao_croupier, total_croupier
+
+#definindo as pontuações
+
+mao_jogador, total_jogador = jogada_jogador(baralho)
+mao_croupier, total_croupier = jogada_croupier(baralho)
+
 
 #Pegando uma carta aleatória
     
 def carta(baralho):
-    Baralho = []
-    for i in range(baralho):
-	    random.shuffle(baralho)
-	    carta = baralho.pop()
-	    if carta == 11:carta = "J"
-	    if carta == 12:carta = "Q"
-	    if carta == 13:carta = "K"
-	    if carta == 14:carta = "A"
-	    Baralho.append(carta)
-    return Baralho
-
-def ponto_carta(Baralho):
-    ponto_carta = 0
-    for carta in Baralho:
-        if carta == "J" or carta == "Q" or carta == "K":
-            ponto_carta = 10
-        elif carta == "A":
-            if total_croupier>= 11:
-                ponto_carta = 1
-            else: 
-                ponto_carta= 11
+    random.shuffle(baralho)
+    carta = baralho[0]
+    carta = baralho.pop()
+    if carta == 11:carta = "J"
+    if carta == 12:carta = "Q"
+    if carta == 13:carta = "K"
+    if carta == 14:carta = "A"
+    
+    if carta == "J" or carta == "Q" or carta == "K":
+        ponto_carta = 10
+    elif carta == "A":
+        if total_croupier >= 11:
+            ponto_carta = 1
         else: 
-            ponto_carta = carta
-        return ponto_carta
-print(carta(ponto_carta(baralho)))
+            ponto_carta= 11
+    else: 
+        ponto_carta = carta
 
-#print(pontos_croupier(jogada_croupier(baralho),total_croupier))
-#print(pontos_jogador(jogada_jogador(baralho),total_jogador))
+        
+    return carta, ponto_carta
 
+print(carta(baralho))
+
+
+print('Sua mão: {0}. Seus pontos: {1}'.format(mao_jogador, total_jogador))
+print('Mão Croupier: {0}. Pontos Croupier: {1}'.format(mao_croupier, total_croupier))
 #Vamos ao jogo
 jogando = True
 
-while jogando or dinheiro_jogador>=0:
+while jogando or dinheiro_jogador >= 0:
     
     if total_jogador == 21:   
         
@@ -141,7 +135,7 @@ while jogando or dinheiro_jogador>=0:
         
     elif total_jogador < 21:
         
-        pergunta = int(input('Se você deseja parar, digite 1. Caso queira continuar, digite 0'))
+        pergunta = int(input('Se você deseja parar, digite 1. Caso queira continuar, digite 0. Digite aqui sua resposta: '))
         
         if pergunta == 1:
             
@@ -174,8 +168,7 @@ while jogando or dinheiro_jogador>=0:
                         print("Você ganhou")
                         print("Seu saldo é de: {0}".format(dinheiro_jogador))
                         
-        if pergunta == 0:
-            
+        elif pergunta == 0:
             jogando = False
             
                 
@@ -183,5 +176,4 @@ while jogando or dinheiro_jogador>=0:
                 
             
             
-
 
