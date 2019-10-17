@@ -11,8 +11,10 @@ import random
 
 
 #Definindo os dois baralhos
-
-n=int(input("Com quantos baralhos voce quer jogar? "))
+print("BlackJack - Ep Design de Software")
+print("-"*80)
+n=int(input("Com quantos baralhos deseja jogar? "))
+print("-"*80)
 baralho_ = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
 baralho=baralho_*n
 
@@ -126,14 +128,14 @@ while jogando == True and dinheiro_jogador > 0:
 
     mao_jogador, total_jogador = jogada_jogador(baralho)
     mao_croupier, total_croupier = jogada_croupier(baralho)
-    
+    print("-"*80)
     print('Sua mão: {0}. Seus pontos: {1}'.format(mao_jogador, total_jogador))
     
     if total_jogador == 21:   
         
         aposta = aposta + 1.5*aposta
         dinheiro_jogador = dinheiro_jogador + aposta        
-        print('Parabéns!!! Você fez os 21 pontos e ganhou a rodada')
+        print('Parabéns!!! Você fez BlackJack!')
         print('Seu saldo é de: {0}'.format(dinheiro_jogador))
 
         
@@ -144,6 +146,7 @@ while jogando == True and dinheiro_jogador > 0:
             
         while pergunta == 0:
             nova_carta, ponto_nova_carta = carta(baralho)
+            print("-"*80)
             print('Carta retirada: {0}'.format(nova_carta))     
             total_jogador += ponto_nova_carta
             print("Pontos do jogador: {0}".format(total_jogador))
@@ -155,19 +158,21 @@ while jogando == True and dinheiro_jogador > 0:
             elif total_jogador == 21:
                 aposta = aposta + 1.5*aposta
                 dinheiro_jogador = dinheiro_jogador + aposta        
-                print('Parabéns!!! Você fez os 21 pontos e ganhou a rodada')
+                print('Parabéns!!! Você fez BlackJack')
                 print('Seu saldo é de: {0}'.format(dinheiro_jogador))
                 break
             else:
+                print("-"*80)
                 pergunta = int(input('Se você quiser mais uma carta, digite 0. Caso não queira mais carta, digite 1. Digite aqui sua resposta: '))
     
         if pergunta == 1:
-            
+            print("-"*80)
             print('Mão Croupier: {0}. Pontos Croupier: {1}'.format(mao_croupier, total_croupier))
 
             while total_croupier < 17:
 #                mao_croupier, total_croupier = jogada_croupier(baralho)
                 nova_carta, ponto_nova_carta = carta(baralho)
+                print("-"*80)
                 print('Carta retirada: {0}'.format(nova_carta))
                 total_croupier += ponto_nova_carta
                 
@@ -178,8 +183,10 @@ while jogando == True and dinheiro_jogador > 0:
                     if total_croupier == 21:
                         
                         dinheiro_jogador = dinheiro_jogador - 2.5*aposta
+                        print("-"*80)
                         print("Pontos do Croupier: {0}".format(total_croupier))
                         print("Pontos do jogador: {0}".format(total_jogador))
+                        print("-"*80)
                         print("O Croupier conseguiu o Blackjack... foi mal amigo")
                         print("Seu saldo é de: {0}".format(dinheiro_jogador))
                         jogando = False
@@ -187,8 +194,10 @@ while jogando == True and dinheiro_jogador > 0:
                     else:
                         
                         dinheiro_jogador = dinheiro_jogador - aposta
+                        print("-"*80)
                         print("Pontos do Croupier: {0}".format(total_croupier))
                         print("Pontos do jogador: {0}".format(total_jogador))
+                        print("-"*80)
                         print("O Croupier venceu... você perdeu essa")
                         print("Seu saldo é de: {0}".format(dinheiro_jogador))
                         jogando = False
@@ -197,8 +206,10 @@ while jogando == True and dinheiro_jogador > 0:
                 elif total_croupier == total_jogador:
                     
                     dinheiro_jogador = dinheiro_jogador
+                    print("-"*80)
                     print("Pontos do Croupier: {0}".format(total_croupier))
                     print("Pontos do jogador: {0}".format(total_jogador))
+                    print("-"*80)
                     print("Houve um empate")
                     print("Seu saldo é de: {0}".format(dinheiro_jogador))
                     jogando = False
@@ -207,8 +218,10 @@ while jogando == True and dinheiro_jogador > 0:
                 else:
                     
                     dinheiro_jogador = dinheiro_jogador + aposta
+                    print("-"*80)
                     print("Pontos do Croupier: {0}".format(total_croupier))
                     print("Pontos do jogador: {0}".format(total_jogador))
+                    print("-"*80)
                     print("Você ganhou")
                     print("Seu saldo é de: {0}".format(dinheiro_jogador))
                     jogando = False
@@ -216,8 +229,10 @@ while jogando == True and dinheiro_jogador > 0:
                     
             else:
                 dinheiro_jogador = dinheiro_jogador + aposta
+                print("-"*80)
                 print("Pontos do Croupier: {0}".format(total_croupier))
                 print("Pontos do jogador: {0}".format(total_jogador))
+                print("-"*80)
                 print("Você ganhou")
                 print("Seu saldo é de: {0}".format(dinheiro_jogador))
                 jogando = False
